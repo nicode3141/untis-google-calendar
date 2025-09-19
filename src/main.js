@@ -8,6 +8,8 @@ console.log(timetable);
 
 const calendar = new GoogleCalendar();
 
+calendar.deleteWeek();
+
 const today = new Date();
 const dayOfWeek = today.getDay();
 

@@ -34,11 +34,12 @@ export class GoogleCalendar {
 
     for (const item of events.data.items) {
       if (!item.id) continue;
-      console.log(item);
+
       await this.#calendar.events.delete({
         eventId: item.id,
         calendarId: this.#calendarId,
       });
+      console.log(`deleted event ${item.summary}`);
       await new Promise((res) => setTimeout(res, 500));
     }
   }
