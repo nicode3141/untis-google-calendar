@@ -1,6 +1,7 @@
 import { WebUntis } from "webuntis";
 import fs from "fs";
 import dotenv from "dotenv";
+import { fork } from "child_process";
 dotenv.config({ path: ".env" });
 
 export class Untis {
@@ -64,6 +65,47 @@ export class Untis {
     );
   }
 
+  #mergeSubjects(timetable) {
+    if (!timetable || timetable.length === 0) return [];
+
+    const merged = [];
+    let prev = timetable[0];
+    console.log(timetable.length);
+
+    for (let i = 1; i < timetable.length; i++) {
+      const curr = timetable[i];
+
+      if (!curr?.startTime || !curr?.endTime || !curr?.name || !curr?.room) {
+        merged.push(prev);
+        prev = curr;
+        continue;
+      }
+
+      if (!prev?.startTime || !prev?.endTime || !prev?.name || !prev?.room) {
+        prev = curr;
+        continue;
+      }
+
+      const prevEnd = prev.endTime.hour * 60 + prev.endTime.minute;
+      const currStart = curr.startTime.hour * 60 + curr.startTime.minute;
+
+      const isSameSlot =
+        curr.name === prev.name &&
+        curr.room === prev.room &&
+        (currStart === prevEnd || currStart === prevEnd + 5);
+
+      if (isSameSlot) {
+        prev.endTime = { ...curr.endTime };
+      } else {
+        merged.push(prev);
+        prev = curr;
+      }
+    }
+
+    merged.push(prev);
+    return merged;
+  }
+
   #processTimetableArray(timetable) {
     let formattedTimetable = [];
     timetable.forEach((e, i) => {
@@ -77,7 +119,7 @@ export class Untis {
       formattedTimetable.push({ startTime, endTime, shortName, name, room });
     });
 
-    return formattedTimetable;
+    return this.#mergeSubjects(formattedTimetable);
   }
 
   async getChanges() {}
