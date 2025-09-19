@@ -1,0 +1,119 @@
+[
+  {
+    "id": 3517380,
+    "date": 20250916,
+    "startTime": 750,
+    "endTime": 835,
+    "kl": [{ "id": 4640, "name": "J2", "longname": "Jahrgangsstufe 2" }],
+    "su": [{ "id": 756, "name": "BD2", "longname": "Basisfach Deutsch 2" }],
+    "ro": [{ "id": 34, "name": "N1.3", "longname": "Klassenraum N1.3" }],
+    "lstext": "C23_1",
+    "lsnumber": 97100,
+    "sg": "BD2_26",
+    "activityType": "Unterricht"
+  },
+  {
+    "id": 3517383,
+    "date": 20250916,
+    "startTime": 840,
+    "endTime": 925,
+    "kl": [{ "id": 4640, "name": "J2", "longname": "Jahrgangsstufe 2" }],
+    "su": [{ "id": 756, "name": "BD2", "longname": "Basisfach Deutsch 2" }],
+    "ro": [{ "id": 34, "name": "N1.3", "longname": "Klassenraum N1.3" }],
+    "lstext": "C23_1",
+    "lsnumber": 97100,
+    "sg": "BD2_26",
+    "activityType": "Unterricht"
+  },
+  {
+    "id": 3519015,
+    "date": 20250916,
+    "startTime": 1130,
+    "endTime": 1215,
+    "kl": [{ "id": 4640, "name": "J2", "longname": "Jahrgangsstufe 2" }],
+    "su": [{ "id": 766, "name": "BE2", "longname": "Basisfach Englisch 2" }],
+    "ro": [{ "id": 39, "name": "D2", "longname": "Klassenraum D2" }],
+    "lstext": "C20, C21",
+    "lsnumber": 97700,
+    "sg": "BE2_26",
+    "activityType": "Unterricht"
+  },
+  {
+    "id": 3519018,
+    "date": 20250916,
+    "startTime": 1220,
+    "endTime": 1305,
+    "kl": [{ "id": 4640, "name": "J2", "longname": "Jahrgangsstufe 2" }],
+    "su": [{ "id": 766, "name": "BE2", "longname": "Basisfach Englisch 2" }],
+    "ro": [{ "id": 39, "name": "D2", "longname": "Klassenraum D2" }],
+    "lstext": "C20, C21",
+    "lsnumber": 97700,
+    "sg": "BE2_26",
+    "activityType": "Unterricht"
+  },
+  {
+    "id": 3537145,
+    "date": 20250916,
+    "startTime": 1540,
+    "endTime": 1625,
+    "code": "cancelled",
+    "kl": [{ "id": 4640, "name": "J2", "longname": "Jahrgangsstufe 2" }],
+    "su": [{ "id": 916, "name": "BSpo2", "longname": "Basisfach Sport 2" }],
+    "ro": [
+      { "id": 64, "name": "ST1", "longname": "Stadionhalle 1" },
+      { "id": 65, "name": "ST2", "longname": "Stadionhalle 2" }
+    ],
+    "lstext": "C33",
+    "lsnumber": 101100,
+    "sg": "BSpo2_26",
+    "activityType": "Unterricht"
+  },
+  {
+    "id": 3537148,
+    "date": 20250916,
+    "startTime": 1630,
+    "endTime": 1715,
+    "code": "cancelled",
+    "kl": [{ "id": 4640, "name": "J2", "longname": "Jahrgangsstufe 2" }],
+    "su": [{ "id": 916, "name": "BSpo2", "longname": "Basisfach Sport 2" }],
+    "ro": [
+      { "id": 64, "name": "ST1", "longname": "Stadionhalle 1" },
+      { "id": 65, "name": "ST2", "longname": "Stadionhalle 2" }
+    ],
+    "lstext": "C33",
+    "lsnumber": 101100,
+    "sg": "BSpo2_26",
+    "activityType": "Unterricht"
+  },
+  {
+    "id": 3569042,
+    "date": 20250916,
+    "startTime": 1025,
+    "endTime": 1110,
+    "kl": [{ "id": 4640, "name": "J2", "longname": "Jahrgangsstufe 2" }],
+    "su": [
+      { "id": 1046, "name": "LM1", "longname": "Leistungsfach Mathematik 1" }
+    ],
+    "ro": [{ "id": 34, "name": "N1.3", "longname": "Klassenraum N1.3" }],
+    "lstext": "C25, C29",
+    "lsnumber": 98500,
+    "sg": "LM1_26",
+    "activityType": "Unterricht"
+  },
+  {
+    "id": 3571778,
+    "date": 20250916,
+    "startTime": 935,
+    "endTime": 1020,
+    "code": "cancelled",
+    "kl": [{ "id": 4640, "name": "J2", "longname": "Jahrgangsstufe 2" }],
+    "su": [
+      { "id": 1056, "name": "LPh1", "longname": "Leistungsfach Physik 1" }
+    ],
+    "ro": [{ "id": 241, "name": "PH2", "longname": "Physik 2 (C2.10)" }],
+    "lstext": "C23, C24",
+    "lsnumber": 97300,
+    "sg": "LPh1_26",
+    "activityType": "Unterricht"
+  }
+]

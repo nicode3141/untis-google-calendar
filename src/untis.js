@@ -73,6 +73,7 @@ export class Untis {
   async getChanges() {}
 
   async getFormattedTimetable() {
+    const weekTimetable = [];
     const today = new Date();
     const dayOfWeek = today.getDay();
 
@@ -85,7 +86,9 @@ export class Untis {
       console.log(`\x1b[4m${monday.toDateString()}\x1b[0m`);
 
       const timetable = await this.getDayTimetable(monday);
-      return this.#processTimetableArray(timetable);
+      weekTimetable.push(this.#processTimetableArray(timetable));
     }
+
+    return weekTimetable;
   }
 }
