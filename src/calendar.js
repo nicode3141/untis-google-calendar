@@ -6,18 +6,31 @@ dotenv.config({ path: "../.env" });
 const SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
 
 export class GoogleCalendar {
-  async auth() {
-    const client = new google.auth.JWT(
-      "nicolas.d.pfeifer@gmail.com",
-      undefined,
-      process.env.CALENDAR_CLIENT_SECRET,
-      SCOPES
-    );
+  #client;
+  #calendar;
+
+  constructor() {
+    this.#client = new google.auth.GoogleAuth({
+      keyFile: "./service-account.json",
+      scopes: ["https://www.googleapis.com/auth/calendar"],
+    });
+
+    this.#calendar = google.calendar({
+      version: "v3",
+      auth: this.#client,
+    });
   }
-}
 
-export async function auth() {}
-
-export async function addEvent() {
-  auth();
+  async addEvent(name, description, startDate, endDate) {
+    this.#calendar.events.insert({
+      calendarId:
+        "3095c43e29089bc37869e4f29848a67dde2cbdcc39b65ac720ec62b835057982@group.calendar.google.com",
+      resource: {
+        summary: name,
+        description: description,
+        start: { dateTime: startDate, timeZone: "Europe/Berlin" },
+        end: { dateTime: endDate, timeZone: "Europe/Berlin" },
+      },
+    });
+  }
 }

@@ -54,6 +54,16 @@ export class Untis {
     return { hour, minute };
   }
 
+  #shortenSubject(name) {
+    return name?.replace(
+      /^(Leistungsfach|Basisfach)\s+(.+?)(?:\s+\d+)?$/, // Zahl am Ende optional
+      (_, fach, subject) => {
+        const suffix = fach === "Leistungsfach" ? "LK" : "BK";
+        return `${subject} ${suffix}`;
+      }
+    );
+  }
+
   #processTimetableArray(timetable) {
     let formattedTimetable = [];
     timetable.forEach((e, i) => {
@@ -61,7 +71,7 @@ export class Untis {
       let endTime = this.#processTimes(e.endTime);
 
       let shortName = e.su[0]?.name;
-      let name = e.su[0]?.longname;
+      let name = this.#shortenSubject(e.su[0]?.longname);
 
       let room = e.ro[0]?.name;
       formattedTimetable.push({ startTime, endTime, shortName, name, room });
