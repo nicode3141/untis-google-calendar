@@ -1,4 +1,6 @@
-import {Untis} from "./untis.js"
+import { Untis } from "./untis.js";
 
 const untis = new Untis();
-untis.getFormattedTimetable();
+const timetable = await untis.getFormattedTimetable();
+
+console.log(timetable);
