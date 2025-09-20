@@ -1,7 +1,7 @@
 import { authenticate } from "@google-cloud/local-auth";
 import { google } from "googleapis";
 import dotenv from "dotenv";
-import { getWeeksMonday, getWeeksSunday } from "./utils.js";
+import { getMonday, getSunday } from "./utils.js";
 dotenv.config({ path: "../.env" });
 
 const SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
@@ -24,11 +24,16 @@ export class GoogleCalendar {
     });
   }
 
-  async deleteWeek() {
+  async deleteWeek(date) {
+    if (!date) date = new Date();
+
+    const { monday } = getMonday(date);
+    const { sunday } = getSunday(date);
+
     const events = await this.#calendar.events.list({
       calendarId: this.#calendarId,
-      timeMin: getWeeksMonday().toISOString(),
-      timeMax: getWeeksSunday().toISOString(),
+      timeMin: monday.toISOString(),
+      timeMax: sunday.toISOString(),
       singleEvents: true,
     });
 

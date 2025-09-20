@@ -1,52 +1,70 @@
+import { eachWeekOfInterval } from "date-fns";
 import { Untis } from "./untis.js";
 import { GoogleCalendar } from "./calendar.js";
+import { getMonday } from "./utils.js";
 
 const untis = new Untis();
-const timetable = await untis.getFormattedTimetable();
-
-console.log(timetable);
-
 const calendar = new GoogleCalendar();
 
-calendar.deleteWeek();
+async function addLesson(lesson, baseDate) {
+  // Create new date objects to avoid mutation
+  const startTime = new Date(baseDate);
+  const endTime = new Date(baseDate);
+  
+  startTime.setHours(lesson.startTime.hour);
+  startTime.setMinutes(lesson.startTime.minute);
+  endTime.setHours(lesson.endTime.hour);
+  endTime.setMinutes(lesson.endTime.minute);
 
-const today = new Date();
-const dayOfWeek = today.getDay();
+  console.log(startTime.toISOString());
 
-const diff = today.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1);
-const monday = new Date(today);
-monday.setDate(diff);
+  try {
+    await calendar.addEvent(
+      lesson.name,
+      `${lesson.room} - ${lesson.shortName}`,
+      startTime.toISOString(),
+      endTime.toISOString()
+    );
+    console.log(`Added Events for \x1b[4m\x1b[32m${lesson.name}\x1b[0m`);
+    await new Promise((res) => setTimeout(res, 500));
+  } catch (e) {
+    console.error(e.message);
+  }
+}
 
-for (let i = 0; i < timetable.length; i++) {
-  monday.setDate(diff + i);
-  console.log(`\x1b[4m Adding Events for ${monday.toDateString()}\x1b[0m`);
+async function updateCalendar(date) {
+  const timetable = await untis.getFormattedTimetable();
+  console.log(timetable);
 
-  const startTime = new Date(monday);
-  const endTime = new Date(monday);
+  calendar.deleteWeek(date);
+  const { monday, diff } = getMonday(date);
 
-  const dayTimetable = timetable[i];
+  for (let i = 0; i < timetable.length; i++) {
+    // Create a new date for each day to avoid mutation
+    const currentDay = new Date(monday);
+    currentDay.setDate(monday.getDate() + i);
+    console.log(`\x1b[4m Adding Events for ${currentDay.toDateString()}\x1b[0m`);
 
-  for (const e of dayTimetable) {
-    if (!e.room) continue;
+    const dayTimetable = timetable[i];
 
-    startTime.setHours(e.startTime.hour);
-    startTime.setMinutes(e.startTime.minute);
-    endTime.setHours(e.endTime.hour);
-    endTime.setMinutes(e.endTime.minute);
-
-    console.log(startTime.toISOString());
-
-    try {
-      await calendar.addEvent(
-        e.name,
-        `${e.room} - ${e.shortName}`,
-        startTime.toISOString(),
-        endTime.toISOString()
-      );
-      console.log(`Added Events for \x1b[4m\x1b[32m${e.name}\x1b[0m`);
-      await new Promise((res) => setTimeout(res, 500));
-    } catch (e) {
-      console.error(e.message);
+    for (const e of dayTimetable) {
+      if (!e.room) continue;
+      await addLesson(e, currentDay);
     }
   }
 }
+
+//await updateCalendar(new Date(2025, 8, 29));
+
+async function addWeeks(startDate, endDate) {
+  const weeks = eachWeekOfInterval({ start: startDate, end: endDate });
+
+  for (const week of weeks) {
+    console.log(
+      `\x1b[34mAdding timetable for week \x1b[1m${week.toISOString()}\x1b[0m`
+    );
+    await updateCalendar(new Date(week));
+  }
+}
+
+await addWeeks(new Date(2025, 11, 29), new Date(2026, 2, 1));
